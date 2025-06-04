@@ -1,0 +1,14 @@
+---
+  -name: Deploy to Tomcat
+   host: web
+   become: yes
+   tasks:
+   -name: copy WAR file to Tomcat
+    copy:
+    src: "/var/snap/jenkins/4865/workspace/mavenweb/target/mavenweb.war"
+    dest: "/opt/tomcat/webapps/mavenweb.war"
+    remote_src: no
+   -name: Restart Tomcat
+    systemd:
+    name: tomcat
+    state: restarted 
